@@ -31,7 +31,7 @@ public class Runner {
 
 
         System.out.println("shapeService.findBiggestArea(shapes) = " + shapeService.findBiggestArea(shapes));
-        System.out.println("shapeService.findBiggestCircumferenceByShape(shapes, Shapes.CIRCLE) = " + shapeService.findBiggestCircumferenceByShape(shapes, Type.RECTANGLE));
+        System.out.println("shapeService.findBiggestCircumferenceByShape(shapes, type) = " + shapeService.findBiggestCircumferenceByShape(shapes, Type.RECTANGLE));
 
         shapeService.exportShapes(shapes, "src/main/resources/shapes.json");
         System.out.println("shapeService.importShapes(\"src/main/resources/shapes.json\") = " + shapeService.importShapes("src/main/resources/shapes.json"));

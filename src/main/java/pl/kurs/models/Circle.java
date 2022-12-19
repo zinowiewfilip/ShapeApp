@@ -1,5 +1,8 @@
 package pl.kurs.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class Circle implements Shape{
@@ -7,7 +10,10 @@ public class Circle implements Shape{
     private Type type = Type.CIRCLE;
     private double radius;
 
-    private Circle(double radius) {
+    @JsonCreator
+    private Circle(
+            @JsonProperty("radius") double radius
+    ) {
         this.radius = radius;
     }
 

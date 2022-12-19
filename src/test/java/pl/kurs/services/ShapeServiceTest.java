@@ -53,7 +53,7 @@ public class ShapeServiceTest {
         Circle circleForTest = shapeFactory.createCircle(14);
 
         //when
-        Shape result = shapeService.findBiggestArea(shapes);
+        Shape result = shapeService.findBiggestArea(listForTest);
 
         //then
         assertEquals(circleForTest, result);
@@ -65,7 +65,7 @@ public class ShapeServiceTest {
         Square squareForTest = shapeFactory.createSquare(14);
 
         //when
-        Shape result = shapeService.findBiggestCircumferenceByShape(shapes, Type.SQUARE);
+        Shape result = shapeService.findBiggestCircumferenceByShape(listForTest, Type.SQUARE);
 
         //then
         assertEquals(squareForTest, result);

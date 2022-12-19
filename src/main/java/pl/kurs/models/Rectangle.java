@@ -1,5 +1,8 @@
 package pl.kurs.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class Rectangle implements Shape {
@@ -8,7 +11,11 @@ public class Rectangle implements Shape {
     private double width;
     private double height;
 
-    private Rectangle(double width, double height) {
+
+    @JsonCreator
+    private Rectangle(
+            @JsonProperty("width") double width,
+            @JsonProperty("height") double height) {
         this.width = width;
         this.height = height;
     }

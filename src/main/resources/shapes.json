@@ -1,1 +1,1 @@
-[{"type":"SQUARE","side":10.0},{"type":"SQUARE","side":12.0},{"type":"SQUARE","side":11.0},{"type":"CIRCLE","radius":11.0},{"type":"CIRCLE","radius":10.0},{"type":"RECTANGLE","width":11.0,"height":19.0},{"type":"RECTANGLE","width":10.0,"height":19.0}]
+[{"side":10.0,"type":"SQUARE"},{"side":12.0,"type":"SQUARE"},{"side":11.0,"type":"SQUARE"},{"radius":11.0,"type":"CIRCLE"},{"radius":10.0,"type":"CIRCLE"},{"width":11.0,"height":19.0,"type":"RECTANGLE"},{"width":10.0,"height":19.0,"type":"RECTANGLE"}]

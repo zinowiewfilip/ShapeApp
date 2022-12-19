@@ -8,5 +8,4 @@ public interface Shape {
     double getArea();
     @JsonIgnore
     double getCircumference();
-    Type getType();
 }
