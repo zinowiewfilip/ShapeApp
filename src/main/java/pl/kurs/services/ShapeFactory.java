@@ -1,5 +1,6 @@
 package pl.kurs.services;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import pl.kurs.models.Circle;
 import pl.kurs.models.Rectangle;
 import pl.kurs.models.Shape;

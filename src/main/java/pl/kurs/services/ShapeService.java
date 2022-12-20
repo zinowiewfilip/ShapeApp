@@ -2,6 +2,7 @@ package pl.kurs.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import pl.kurs.models.*;
 
 import java.io.File;
@@ -40,33 +41,31 @@ public class ShapeService {
     public List<Shape> importShapes(String path) throws IOException {
         List<Shape> shapes = new ArrayList<>();
         JsonNode shapeJson = objectMapper.readTree(new File(path));
-        for (int i = 0; i < shapeJson.size(); i++) {
-            if(shapeJson.get(i) == null) {
-                continue;
-            }
-            if(shapeJson.get(i).get("type") == null) {
-                continue;
-            }
-            if (shapeJson.get(i)
-                    .get("type")
-                    .asText()
-                    .equals(Type.SQUARE.toString()))
-                shapes.add(shapeFactory.createSquare(objectMapper.treeToValue(shapeJson.get(i), Square.class).getSide()));
-            else if (shapeJson.get(i)
-                    .get("type")
-                    .asText()
-                    .equals(Type.CIRCLE.toString())) {
-                shapes.add(shapeFactory.createCircle(objectMapper.treeToValue(shapeJson.get(i), Circle.class).getRadius()));
-            } else if (shapeJson
-                    .get(i)
-                    .get("type")
-                    .asText()
-                    .equals(Type.RECTANGLE.toString())) {
-                Rectangle rectangle = objectMapper.treeToValue(shapeJson.get(i), Rectangle.class);
-                shapes.add(shapeFactory.createRectangle(rectangle.getWidth(), rectangle.getHeight()));
+            for (int i = 0; i < shapeJson.size(); i++) {
+
+                if (shapeJson.get(i) == null) {
+                    continue;
+                }
+                if (shapeJson.get(i).get("type") == null) {
+                    continue;
+                }
+                if (shapeJson.get(i)
+                        .get("type")
+                        .asText()
+                        .equals(Type.SQUARE.toString()))
+                    shapes.add(shapeFactory.createSquare(objectMapper.treeToValue(shapeJson.get(i), Square.class).getSide()));
+                else if (shapeJson.get(i)
+                        .get("type")
+                        .asText()
+                        .equals(Type.CIRCLE.toString())) {
+                    shapes.add(shapeFactory.createCircle(objectMapper.treeToValue(shapeJson.get(i), Circle.class).getRadius()));
+                } else {
+                    Rectangle rectangle = objectMapper.treeToValue(shapeJson.get(i), Rectangle.class);
+                    shapes.add(shapeFactory.createRectangle(rectangle.getWidth(), rectangle.getHeight()));
+                }
             }
 
-        }
+
 
         return shapes;
     }

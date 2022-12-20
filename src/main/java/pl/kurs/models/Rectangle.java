@@ -7,7 +7,8 @@ import java.util.Objects;
 
 public class Rectangle implements Shape {
 
-    private Type type = Type.RECTANGLE;
+
+    @JsonProperty("type") private Type type = Type.RECTANGLE;
     private double width;
     private double height;
 

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Square implements Shape{
 
-    private Type type = Type.SQUARE;
+    @JsonProperty("type") private Type type = Type.SQUARE;
     private double side;
 
     @JsonCreator
@@ -30,6 +30,7 @@ public class Square implements Shape{
     public static Square createInstance(double side) {
         return new Square(side);
     }
+
 
     public Type getType() {
         return type;

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Circle implements Shape{
 
-    private Type type = Type.CIRCLE;
+    @JsonProperty("type") private Type type = Type.CIRCLE;
     private double radius;
 
     @JsonCreator

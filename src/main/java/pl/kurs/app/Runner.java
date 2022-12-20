@@ -1,11 +1,16 @@
 package pl.kurs.app;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.kurs.models.*;
 import pl.kurs.services.IShapeFactory;
 import pl.kurs.services.ShapeFactory;
 import pl.kurs.services.ShapeService;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class Runner {
@@ -34,7 +39,11 @@ public class Runner {
         System.out.println("shapeService.findBiggestCircumferenceByShape(shapes, type) = " + shapeService.findBiggestCircumferenceByShape(shapes, Type.RECTANGLE));
 
         shapeService.exportShapes(shapes, "src/main/resources/shapes.json");
-        System.out.println("shapeService.importShapes(\"src/main/resources/shapes.json\") = " + shapeService.importShapes("src/main/resources/shapes.json"));
+       System.out.println("shapeService.importShapes(\"src/main/resources/shapes.json\") = " + shapeService.importShapes("src/test/resources/shapesForTestReading.json"));
+        ObjectMapper objectMapper = new ObjectMapper();
+
+
+
 
 
     }
