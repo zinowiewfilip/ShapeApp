@@ -5,16 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import pl.kurs.models.Circle;
 import pl.kurs.models.Shape;
 import pl.kurs.models.Square;
-import pl.kurs.models.Type;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +76,7 @@ public class ShapeServiceTest {
         Square squareForTest = shapeFactory.createSquare(14);
 
         //when
-        Shape result = shapeService.findBiggestCircumferenceByShape(listForTest, Type.SQUARE);
+        Shape result = shapeService.findBiggestCircumferenceByShape(listForTest, "square");
 
         //then
         assertEquals(squareForTest, result);
@@ -97,7 +94,7 @@ public class ShapeServiceTest {
         JsonNode jsonFromFile = objectMapper.readTree(new File(path));
 
         //then
-        assertEquals(squareForTest.getType().name(), jsonFromFile.get(1).get("type").asText());
+        assertEquals(squareForTest.getClassName(), jsonFromFile.get(1).get("type").asText());
     }
     @Test
     public void whenCorrectReadShouldEquals() throws IOException {
@@ -107,13 +104,12 @@ public class ShapeServiceTest {
         List<Shape> listForTest = List.of(c1);
 
         //when
-        objectMapper.writeValue(new File(path), c1);
-
+        objectMapper.writeValue(new File(path), listForTest);
         List<Shape> result = shapeService.importShapes(path);
-        System.out.println(result);
+
 
         //then
-        assertEquals(listForTest, result);
+        assertEquals(listForTest.toString(), result.toString());
 
     }
 }

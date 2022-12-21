@@ -1,18 +1,18 @@
 package pl.kurs.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Objects;
 
-public class Square implements Shape{
+public class Square implements Shape {
 
-    @JsonProperty("type") private Type type = Type.SQUARE;
     private double side;
 
     @JsonCreator
+    private Square() {
+    }
+
     private Square(
-            @JsonProperty("side") double side
+            double side
     ) {
         this.side = side;
     }
@@ -31,10 +31,6 @@ public class Square implements Shape{
         return new Square(side);
     }
 
-
-    public Type getType() {
-        return type;
-    }
 
     public double getSide() {
         return side;

@@ -42,12 +42,23 @@ public class ShapeFactoryTest {
         assertEquals(IllegalArgumentException.class, e.getClass());
     }
     @Test
-    public void shouldThrowIllegalArgumentExceptionWhenCreatingRectangle() {
+    public void shouldThrowIllegalArgumentExceptionWhenCreatingRectangleWithWidth0() {
         //given
         double doubleForTest = 0;
 
         //when
-        Exception e = assertThrows(IllegalArgumentException.class, () -> shapeFactory.createRectangle(doubleForTest, doubleForTest));
+        Exception e = assertThrows(IllegalArgumentException.class, () -> shapeFactory.createRectangle(doubleForTest, 12));
+
+        //then
+        assertEquals(IllegalArgumentException.class, e.getClass());
+    }
+    @Test
+    public void shouldThrowIllegalArgumentExceptionWhenCreatingRectangleWithHeight0() {
+        //given
+        double doubleForTest = 0;
+
+        //when
+        Exception e = assertThrows(IllegalArgumentException.class, () -> shapeFactory.createRectangle(13, doubleForTest));
 
         //then
         assertEquals(IllegalArgumentException.class, e.getClass());

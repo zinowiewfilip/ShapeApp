@@ -1,20 +1,20 @@
 package pl.kurs.services;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
-import pl.kurs.models.*;
+import pl.kurs.models.Shape;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 public class ShapeService {
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper().enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+
     private IShapeFactory shapeFactory;
+
 
     public ShapeService(IShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
@@ -27,9 +27,9 @@ public class ShapeService {
 
     }
 
-    public Shape findBiggestCircumferenceByShape(List<Shape> shapes, Enum shape) {
+    public Shape findBiggestCircumferenceByShape(List<Shape> shapes, String name) {
         return shapes.stream()
-                .filter(x -> x.getClass().getSimpleName().equalsIgnoreCase(shape.name()))
+                .filter(x -> x.getClass().getSimpleName().equalsIgnoreCase(name))
                 .max(Comparator.comparingDouble(x -> x.getCircumference()))
                 .orElseThrow();
     }
@@ -39,33 +39,8 @@ public class ShapeService {
     }
 
     public List<Shape> importShapes(String path) throws IOException {
-        List<Shape> shapes = new ArrayList<>();
-        JsonNode shapeJson = objectMapper.readTree(new File(path));
-            for (int i = 0; i < shapeJson.size(); i++) {
-
-                if (shapeJson.get(i) == null) {
-                    continue;
-                }
-                if (shapeJson.get(i).get("type") == null) {
-                    continue;
-                }
-                if (shapeJson.get(i)
-                        .get("type")
-                        .asText()
-                        .equals(Type.SQUARE.toString()))
-                    shapes.add(shapeFactory.createSquare(objectMapper.treeToValue(shapeJson.get(i), Square.class).getSide()));
-                else if (shapeJson.get(i)
-                        .get("type")
-                        .asText()
-                        .equals(Type.CIRCLE.toString())) {
-                    shapes.add(shapeFactory.createCircle(objectMapper.treeToValue(shapeJson.get(i), Circle.class).getRadius()));
-                } else {
-                    Rectangle rectangle = objectMapper.treeToValue(shapeJson.get(i), Rectangle.class);
-                    shapes.add(shapeFactory.createRectangle(rectangle.getWidth(), rectangle.getHeight()));
-                }
-            }
-
-
+        List<Shape> shapes = objectMapper.readValue(new File(path), new TypeReference<List<Shape>>() {
+        });
 
         return shapes;
     }
